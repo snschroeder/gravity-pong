@@ -19,7 +19,7 @@ let defaultPlayerHeight = 100;
 
 //set global variables for physics
 let pi = Math.PI;
-let Cd = 0.47;
+let Cd = 0.75;
 let rho = 1.22;
 let A = 20;
 let gravity = 9.81;
@@ -37,6 +37,7 @@ function playerConstructor(startX, startY, keyControl) {
     this.restitution = -0.2;
     this.velocity = {x: 0, y: 0};
     this.jumpPower = 20;
+    this.score = 0;
 
     this.draw = function() {
         ctx.fillRect(this.x + this.velocity.x, this.y + this.velocity.y, this.width, this.height);
@@ -75,6 +76,23 @@ ball = {
     },
     draw: function() {
         ctx.fillRect(this.position.x, this.position.y, this.side, this.side);
+    }
+}
+
+function reset() {
+    if (ball.position.x < 0 - ball.side || ball.position.x > WIDTH) {
+        if (ball.position.x < 0) {
+            player2.score++;
+            ball.velocity.x = ball.speed;
+        }
+        else {
+            player.score++;
+            ball.velocity.x = ball.speed *-1;
+        }
+
+        console.log(player.score + " " + player2.score);
+        ball.position.x = (WIDTH - ball.side) *0.5;
+        ball.position.y = (HEIGHT - ball.side) *0.5;
     }
 }
 
@@ -166,6 +184,7 @@ function main() {
         ball.update();
         player.update();
         player2.update();
+        reset();
         
         draw();
 
