@@ -70,8 +70,8 @@ ball = {
             this.position.x = paddle === player ? player.x + player.width : player2.x - this.side;
             let n = (this.position.y + this.side - paddle.y)/(paddle.height + this.side);
             let phi = 0.25 * pi * (2 * n - 1); // pi/4 = 45 degree angle
-            this.velocity.x = (paddle===player ? 1 : -1) * (this.speed + 2.5) * Math.cos(phi);
-            this.velocity.y = (this.speed + 2.5) * Math.sin(phi);
+            this.velocity.x = (paddle===player ? 1 : -1) * (this.speed += Math.random()) * Math.cos(phi);
+            this.velocity.y = (this.speed += Math.random()) * Math.sin(phi);
         }
     },
     draw: function() {
@@ -83,11 +83,15 @@ function reset() {
     if (ball.position.x < 0 - ball.side || ball.position.x > WIDTH) {
         if (ball.position.x < 0) {
             player2.score++;
+            ball.speed = 6;
             ball.velocity.x = ball.speed;
+            ball.velocity.y = 0;
         }
         else {
             player.score++;
+            ball.speed = 6;
             ball.velocity.x = ball.speed *-1;
+            ball.velocity.y = 0;
         }
 
         console.log(player.score + " " + player2.score);
