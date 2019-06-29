@@ -70,8 +70,8 @@ ball = {
             this.position.x = paddle === player ? player.x + player.width : player2.x - this.side;
             let n = (this.position.y + this.side - paddle.y)/(paddle.height + this.side);
             let phi = 0.25 * pi * (2 * n - 1); // pi/4 = 45 degree angle
-            this.velocity.x = (paddle===player ? 1 : -1) * this.speed * Math.cos(phi);
-            this.velocity.y = this.speed * Math.sin(phi);
+            this.velocity.x = (paddle===player ? 1 : -1) * (this.speed + 2.5) * Math.cos(phi);
+            this.velocity.y = (this.speed + 2.5) * Math.sin(phi);
         }
     },
     draw: function() {
